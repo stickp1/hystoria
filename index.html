@@ -20,9 +20,8 @@
 
           <div id="title-div">
             <img src="img/homoSapiens.gif">
-            <img src="img/vote.png">
             <h1 style="color:white;">HyStOria</h1>
-            <h4 style="color:white;">the greater and lesser told stories</h4>
+            <h4 style="color:white;">the greater and lesser events</h4>
           </div>
 
           <!-- div for entering messages to the user, currently just used by a loading animation. -->
@@ -46,8 +45,15 @@
                   placeholder="Your testimonial">
               </div>
             </form>
-
             <button id="registerBtn" class="btn btn-block">Register</button>
+            <div class="row">
+                <div class="column">
+                  <button id="upPastBtn" class="btn btn-block">Bright History</button>
+                </div>
+                <div class="column">
+                  <button id="dwPastBtn" class="btn btn-block">Dark History</button>
+                </div>
+            </div>
           </div>
 
           <!-- div for form registration of the meme. We need the url and a name. -->
@@ -60,16 +66,10 @@
     <script id="template" type="x-tmpl-mustache">
       {{#memeArray}}
         <div class="card">
+          <h6 class="card-subtitle mb-2 text-muted">{{creatorName}}</h6>
           <h5 class="card-img-top">{{memeUrl}}</h5>
           <div class="card-body">
-            <div class="row">
-              <div class="column">
                 <h6 class="card-subtitle mb-2 text-muted">{{votes}} ættos</h6>
-              </div>
-              <div class="column">
-                <h6 class="card-subtitle mb-2 text-muted">{{creatorName}}</h6>
-              </div>
-            </div>
             <input type="number" class="form-control" placeholder="Amount" id={{index}}>
             <div class="row">
               <div class="column">
