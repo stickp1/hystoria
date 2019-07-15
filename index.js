@@ -37,6 +37,8 @@ const contractSource = `
           None    => abort("There was no moment witnessed by this index.")
           Some(x) => x
           
+      public function getPastLength() : int   = state.timer
+
       public function getNowsLength() : int   = state.nowsLength
       
       public function getUpPast() : list(now) = state.upPast
@@ -164,7 +166,9 @@ window.addEventListener('load', async () => {
   //First make a call to get to know how may memes have been created and need to be displayed
   //Assign the value of meme length to the global variable
   memesLength = await callStatic('getNowsLength', []);
-
+  
+  pastLength = await callStatic('getPastLength', []);
+  
   //Loop over every meme to get all their relevant information
   for (let i = 1; i <= memesLength; i++) {
 
@@ -192,7 +196,7 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   $("#loader").show();
   //Create two new let block scoped variables, value for the vote input and
   //index to get the index of the meme on which the user wants to vote
-  let value = $(this).siblings('input').val(),
+  let value = $(this).parent().siblings('input').val(),
       index = event.target.id;
 
   //Promise to execute execute call for the vote meme function with let values
@@ -206,6 +210,19 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   renderMemes();
   $("#loader").hide();
 });
+
+//If someone click to see BrightHistory, execute the getUpPast
+$('#upPastBtn').click(async function(){
+  $('#loader').show();
+  
+  const meme = await callStatic('getUpPast', []);
+  
+  for (let i = 1; i <= pastLength; i++) {
+    
+  }
+  
+})
+
 
 //If someone clicks to register a meme, get the input and execute the registerCall
 $('#registerBtn').click(async function(){
