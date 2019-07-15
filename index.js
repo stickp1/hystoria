@@ -196,7 +196,7 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
       index = event.target.id;
 
   //Promise to execute execute call for the vote meme function with let values
-  await contractCall('voteNow', [index], value);
+  await contractCall('voteUp', [index], value);
 
   //Hide the loading animation after async calls return a value
   const foundIndex = memeArray.findIndex(meme => meme.index == event.target.id);
