@@ -21,31 +21,31 @@
           <div id="title-div">
             <img src="img/homoSapiens.gif">
             <img src="img/vote.png">
-            <h1 style="color:white;">Meme Voting</h1>
+            <h1 style="color:white;">HyStOria</h1>
+            <h4 style="color:white;">the greater and lesser told stories</h4>
           </div>
 
           <!-- div for entering messages to the user, currently just used by a loading animation. -->
           <div id="message">
             <div id="loader" class="alert alert-secondary">
               <img src="img/loading.gif">
-              <div><b>LOADING</b></div>
+              <div><b>Accessing current moment</b></div>
             </div>
+            <div id="loader2" class="alert alert-secondary">
+              <img src="img/loading.gif">
+              <div><b>Accessing past</b></div>
           </div>
 
           <!-- div for form registration of the meme. We need the url and a name. -->
           <div>
             <form>
               <div class="form-row">
-                <div class="col">
-                  <input type="text" id="regUrl" class="form-control"
-                  placeholder="Url of the meme">
-
-                </div>
-                <div class="col">
                   <input type="text" id="regName" class="form-control"
                   placeholder="Your name">
-
-                </div>
+              </div>
+              <div class="form-row">
+                  <input type="text" id="regUrl" class="form-control"
+                  placeholder="Your testimonial">
               </div>
             </form>
 
@@ -62,14 +62,22 @@
     <script id="template" type="x-tmpl-mustache">
       {{#memeArray}}
         <div class="card">
-          <h5 class="card-title">{{creatorName}}</h5>
-          
-          <!-- <img class="card-img-top" src="{{memeUrl}}" alt="Card image cap"> -->
           <h5 class="card-img-top">{{memeUrl}}</h5>
           <div class="card-body">
-            <h6 class="card-subtitle mb-2 text-muted">{{votes}} ættos</h6>
+            <div class="column">
+              <h6 class="card-subtitle mb-2 text-muted">{{votes}} ættos</h6>
+            </div>
+            <div class="column">
+              <h6 class="card-subtitle mb-2 text-muted">{{creatorName}}</h6>
+            </div>
+            
             <input type="number" class="form-control" placeholder="Amount" id={{index}}>
-            <button class="btn voteBtn btn-block" id={{index}}>VOTE</button>
+            <div class="column">
+              <button class="btn voteBtn btn-block" id={{index}}>vote UP</button>
+            </div>
+            <div class="column">
+              <button class="btn voteBtn btn-block" id={{index}}>VOTE DOWN</button>
+            </div>
           </div>
         </div>
       {{/memeArray}}
