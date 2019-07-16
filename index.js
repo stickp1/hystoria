@@ -249,10 +249,13 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
 $(document).on("change","input[type=radio]",function(){
     $('#loader').show();
     if (document.getElementById('upPastBtn').checked) {
+        document.body.style.background = #F0FFFF;
         $("#dwPastBody").hide();
         $("#upPastBody").show();
     } else {
+        document.body.style.background = #2F4F4F;
         if(firstRender){
+          $("#upPastBody").hide();
           renderDwPast();
           firstRender = false;
         }else{
