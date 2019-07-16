@@ -222,16 +222,17 @@ $('#upPastBtn').click(async function(){
   
   const past = await callStatic('getUpPast', []);
   console.log("past", past)
-  for (let i = 1; i <= 2; i++) {
-    console.log("past", past)
-    upPastArray.push({
-      moment: past[1].moment,
-      size: past[1].upVotes
-    })
-  }
+  past.foreach(writePast)
   console.log("upPastArray", upPastArray)
   
 })
+
+function writePast(event){
+  upPastArray.push({
+    moment : event.moment,
+    size : event.upVotes
+  })
+}
 
 
 //If someone clicks to register a meme, get the input and execute the registerCall
