@@ -164,9 +164,11 @@ window.addEventListener('load', async () => {
 
   //First make a call to get to know how may memes have been created and need to be displayed
   //Assign the value of meme length to the global variable
+  pastLength = await callStatic('getPastLength', []);
+  
   memesLength = await callStatic('getNowsLength', []);
   
-  pastLength = await callStatic('getPastLength', []);
+  
   
   //Loop over every meme to get all their relevant information
   for (let i = 1; i <= memesLength; i++) {
