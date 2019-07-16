@@ -23,46 +23,13 @@
             <h1 id="static_text" style="color:#2F4F4F;">Hystoria</h1>
             <h4 id="static_text" style="color:#2F4F4F;">the greater and lesser events</h4>
           </div>
-
-          <!-- div for entering messages to the user, currently just used by a loading animation. -->
+          
+           <!-- div for entering messages to the user, currently just used by a loading animation. -->
           <div id="message">
-            <div id="loader" class="alert alert-secondary">
+            <div id="loader" class="alert alert-light">
               <img src="img/loading.gif">
-              <div><b>Loading</b></div>
+              <div><b style="color:#2F4F4F;">Loading</b></div>
             </div>
-          </div>
-
-          <!-- div for form registration of the meme. We need the url and a name. -->
-          <div>
-            <form>
-              <div class="form-row">
-                  <input type="text" id="regName" class="form-control"
-                  placeholder="Your name">
-              </div>
-              <br>
-              <div class="form-row">
-                  <input type="text" id="regUrl" class="form-control"
-                  placeholder="Your testimonial">
-              </div>
-            </form>
-            <button id="registerBtn" class="btn btn-block">Register</button>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-secondary active">
-                <input type="radio" name="options" id="upPastBtn" autocomplete="off" checked> Bright History
-              </label>
-              <label class="btn btn-secondary">
-                <input type="radio" name="options" id="dwPastBtn" autocomplete="off"> Dark History
-              </label>
-            </div>
-            
-       <!--<div class="row">
-                <div class="column">
-                  <button id="upPastBtn" class="btn btn-block">Bright History</button>
-                </div>
-                <div class="column">
-                  <button id="dwPastBtn" class="btn btn-block">Dark History</button>
-                </div>
-            </div>-->
           </div>
           
           <div id="upPastBody"></div>
@@ -108,10 +75,44 @@
           </div>
           <div class="card-footer bg-transparent border-success text-muted">{{creatorName}}</div>
           </div>
-          {{/memeArray}}
-        </script>
-      
-      <!--
+      {{/memeArray}}
+    </script>
+     
+           
+     <!-- div for form registration of the meme. We need the url and a name. -->
+     <div>
+       <form>
+         <div class="form-row">
+            <input type="text" id="regName" class="form-control"
+             placeholder="Your name">
+         </div>
+         <br>
+         <div class="form-row">
+             <input type="text" id="regUrl" class="form-control"
+             placeholder="Your testimonial">
+         </div>
+       </form>
+       <button id="registerBtn" class="btn btn-block">Register</button>
+       <div class="btn-group btn-group-toggle" data-toggle="buttons">
+         <label class="btn btn-secondary active">
+           <input type="radio" name="options" id="upPastBtn" autocomplete="off" checked> Bright History
+         </label>
+         <label class="btn btn-secondary">
+           <input type="radio" name="options" id="dwPastBtn" autocomplete="off"> Dark History
+         </label>
+       </div>
+            
+       <!--<div class="row">
+                <div class="column">
+                  <button id="upPastBtn" class="btn btn-block">Bright History</button>
+                </div>
+                <div class="column">
+                  <button id="dwPastBtn" class="btn btn-block">Dark History</button>
+                </div>
+            </div>-->
+     </div>
+    
+    <!--
       
         <div class="card">
           <h6 class="card-subtitle mb-2 text-muted">{{creatorName}}</h6>
