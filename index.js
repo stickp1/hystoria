@@ -169,7 +169,7 @@ window.addEventListener('load', async () => {
 
   memesLength = await callStatic('getNowsLength', []);
   
-  pastLength = await callStatic('getPastLength', []);  
+  //pastLength = await callStatic('getPastLength', []);  
   
   //Loop over every meme to get all their relevant information
   for (let i = 1; i <= memesLength; i++) {
@@ -219,7 +219,7 @@ $('#upPastBtn').click(async function(){
   
   const meme = await callStatic('getUpPast', []);
   
-  for (let i = 1; i <= pastLength; i++) {
+  for (let i = 1; i <= 1; i++) {
     
   }
   
