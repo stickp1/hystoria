@@ -67,13 +67,15 @@
     </div>
     
     
-      {{#upPastArray}}
+      
         <div class="jumbotron">
           <script id="template2" type="x-tmpl-mustache">
-            <h1 class="display-4">{{moment}}</h1>
+            {{#upPastArray}}
+             <h1 class="display-4">{{moment}}</h1>
+            {{/upPastArray}}
           </script>  
         </div>        
-      {{/upPastArray}}
+      
     
     
 
