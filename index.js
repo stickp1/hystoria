@@ -116,6 +116,8 @@ var client = null;
 var memeArray = [];
 //Create a new variable to store the length of the meme globally
 var memesLength = 0;
+// Create a new variable to store the length of the past
+var pastLength = 0;
 
 function renderMemes() {
   //Order the memes array so that the meme with the most votes is on top
@@ -164,7 +166,7 @@ window.addEventListener('load', async () => {
 
   //First make a call to get to know how may memes have been created and need to be displayed
   //Assign the value of meme length to the global variable
-  pastLength = await callStatic('getPastLength', []);
+  pastLength  = await callStatic('getPastLength', []);
   
   memesLength = await callStatic('getNowsLength', []);
   
