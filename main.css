@@ -29,10 +29,6 @@ img{
   display: none;
 }
 
-#container p { 
-  display: inline 
-}
-
 .h4{
   color:white
 }
@@ -58,8 +54,8 @@ img{
   /*border: 0.5em solid #2F4F4F;*/
 }
 
-.jumbotron{
-  white-space:normal;
+.lead{
+  white-space:nowrap;
 }
 
 .container{
