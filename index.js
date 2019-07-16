@@ -241,14 +241,14 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
 $(document).on("change","input[type=radio]",function(){
     if (document.getElementById('upPastBtn').checked) {
         $('#loader').show();
-        $("#dwPastBody").hide();
+        //$("#dwPastBody").hide();
         renderUpPast();
         $('#loader').hide();
     } else {
         $('#loader').show();
         $("#upPastBody").hide();
-        renderDwPast();
-        $('#loader').hide();
+        //renderDwPast();
+        //$('#loader').hide();
     }
 });
 
