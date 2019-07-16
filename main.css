@@ -54,6 +54,12 @@ img{
   /*border: 0.5em solid #2F4F4F;*/
 }
 
+.jumbotron{
+  margin-top: 3em;
+  padding-top: 0.5em;
+  color: #F0FFFF
+}
+
 .lead{
   white-space:nowrap;
 }
