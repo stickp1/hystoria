@@ -198,7 +198,7 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   $("#loader").show();
   //Create two new let block scoped variables, value for the vote input and
   //index to get the index of the meme on which the user wants to vote
-  let value = $(this).parent().siblings('input').val(),
+  let value = $(this).siblings('input').val(),
       index = event.target.id;
 
   //Promise to execute execute call for the vote meme function with let values
