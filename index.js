@@ -118,6 +118,10 @@ var memeArray = [];
 var memesLength = 0;
 // Create a new variable to store the length of the past
 var pastLength = 0;
+// Create a new variable to store bright history
+var upPastArray = [];
+// Create a new variable to store dark history
+var dwPastArray = [];
 
 function renderMemes() {
   //Order the memes array so that the meme with the most votes is on top
@@ -200,7 +204,6 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   //index to get the index of the meme on which the user wants to vote
   let value = $(this).siblings('input').val(),
       index = event.target.id;
-
   //Promise to execute execute call for the vote meme function with let values
   await contractCall('voteUp', [index], value);
 
@@ -217,10 +220,12 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
 $('#upPastBtn').click(async function(){
   $('#loader').show();
   
-  const meme = await callStatic('getUpPast', []);
-  
+  const past = await callStatic('getUpPast', []);
+  console.log('past', past)
   for (let i = 1; i <= 1; i++) {
-    
+    //upPastArray.push({
+     // moment: meme
+    })
   }
   
 })
