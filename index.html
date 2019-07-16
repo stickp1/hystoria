@@ -48,12 +48,12 @@
           <!-- div for form registration of the meme. We need the url and a name. -->
          <div class="card border-success" style="max-width: 20rem;">
            <form>
-             <div class="form-group mx-sm-3">
+             <div class="form-group mx-sm-5">
                 <input type="text" id="regName" class="form-control"
                  placeholder="Your name">
              </div>
              <br>
-             <div class="form-group mb-2">
+             <div class="form-group mb-10">
                  <input type="text" id="regUrl" class="form-control"
                  placeholder="Your testimonial">
              </div>
@@ -79,7 +79,7 @@
         <div style="background:transparent !important" class="jumbotron">
           
             {{#upPastArray}}
-              <nobr><span class="lead" style="color:#2F4F4F">{{moment}}</span></nobr>
+              <span class="lead" style="color:#2F4F4F">{{moment}}</span>
             {{/upPastArray}}
          
         </div>      
@@ -88,7 +88,7 @@
       <script id="template3" type="x-tmpl-mustache">
         <div style="background:transparent !important" class="jumbotron">
           {{#dwPastArray}}
-            <span class="lead" style="color:#F0FFFF"><nobr>{{moment}}</nobr></span>
+            <span class="lead" style="color:#F0FFFF">{{moment}}</span>
           {{/dwPastArray}}
         </div>
       </script>
