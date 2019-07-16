@@ -259,7 +259,7 @@ $(document).on("change","input[type=radio]",function(){
     } else {
         document.body.style.backgroundColor = "#2F4F4F";
         document.getElementById("static_text").style.color="#F0FFFF";
-        document.getElementById("registerBtn").style.backgroundColor="#F0FFFF";
+        document.getElementById("registerBtn").style.outlineColor="#F0FFFF";
         document.getElementById("registerBtn").style.color="#2F4F4F";
         document.getElementById("upPastBtn").style.backgroundColor="#F0FFFF";
         document.getElementById("registerBtn").style.color="#2F4F4F";
