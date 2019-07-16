@@ -123,6 +123,8 @@ var upPastArray = [];
 // Create a new variable to store dark history
 var dwPastArray = [];
 
+var firstRender = true;
+
 function renderMemes() {
   //Order the memes array so that the meme with the most votes is on top
   memeArray = memeArray.sort(function(a,b){return b.votes-a.votes})
@@ -189,7 +191,19 @@ window.addEventListener('load', async () => {
   
   //pastLength = await callStatic('getPastLength', []);  
   
-  const past = await callStatic('getUpPast', []);
+  const upPast = await callStatic('getUpPast', []);
+  
+  const dwPast = await callStatic('getDwPast', []);
+  
+  upPast.forEach(writeUpPast)
+  
+  dwPast.forEach(writeDwPast)
+  
+  console.log("upPastArray", upPastArray)
+  
+  console.log("dwPastArray", dwPastArray)
+  
+  renderUpPast();
   
   past.forEach(writePast)
   
@@ -239,17 +253,20 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
 });
 
 $(document).on("change","input[type=radio]",function(){
+    $('#loader').show();
     if (document.getElementById('upPastBtn').checked) {
-        $('#loader').show();
-        //$("#dwPastBody").hide();
-        renderUpPast();
-        $('#loader').hide();
+        $("#dwPastBody").hide();
+        $("#upPastBody").show();
     } else {
-        $('#loader').show();
-        $("#upPastBody").hide();
-        //renderDwPast();
-        //$('#loader').hide();
+        if(firstRender){
+          renderDwPast();
+          firstRender = false;
+        else{
+          $("#upPastBody").hide();
+          $("#dwPastBody").show();
+        }
     }
+    $('#loader').hide();
 });
 
 /*//If someone click to see BrightHistory, execute the getUpPast
@@ -264,8 +281,12 @@ $('#upPastBtn').click(async function(){
   $('#loader').hide();
 })
 */
-function writePast(event){
+function writeUpPast(event){
   upPastArray.push({ moment : event.moment })
+}
+
+function writeDwPast(event){
+  dwPastArray.push({ moment : event.moment })
 }
 
 //If someone clicks to register a meme, get the input and execute the registerCall
