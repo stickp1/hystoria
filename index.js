@@ -252,12 +252,20 @@ $(document).on("change","input[type=radio]",function(){
         document.body.style.backgroundColor = "#F0FFFF";
         document.getElementById("title-div").style.color="#2F4F4F";
         document.getElementById("registerBtn").style.backgroundColor="#2F4F4F";
+        document.getElementById("upPastBtn").style.backgroundColor="#2F4F4F";
+        document.getElementById("dwPastBtn").style.backgroundColor="#2F4F4F";
         $("#dwPastBody").hide();
         $("#upPastBody").show();
     } else {
         document.body.style.backgroundColor = "#2F4F4F";
-        document.getElementById("title-div").style.color="#F0FFFF";
+        document.getElementById("static_text").style.color="#F0FFFF";
         document.getElementById("registerBtn").style.backgroundColor="#F0FFFF";
+        document.getElementById("registerBtn").style.color="#2F4F4F";
+        document.getElementById("upPastBtn").style.backgroundColor="#F0FFFF";
+        document.getElementById("registerBtn").style.color="#2F4F4F";
+        document.getElementById("dwPastBtn").style.backgroundColor="#F0FFFF";
+        document.getElementById("registerBtn").style.color="#2F4F4F";
+        document.getElementById("registerBtn").style.backgroundColor="#2F4F4F";
         if(firstRender){
           $("#upPastBody").hide();
           renderDwPast();
