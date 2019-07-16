@@ -58,10 +58,11 @@ img{
   margin-top: 3em;
   padding-top: 0.5em;
   color: #F0FFFF;
+  white-space:nowrap;
 }
 
 .lead{
-  white-space:nowrap;
+  /*white-space:nowrap;*/
 }
 
 .container{
