@@ -221,12 +221,13 @@ $('#upPastBtn').click(async function(){
   $('#loader').show();
   
   const past = await callStatic('getUpPast', []);
-  console.log('past', past)
-  for (let i = 1; i <= 1; i++) {
-    //upPastArray.push({
-     // moment: meme
-    //})
+  for (let i = 1; i <= 2; i++) {
+    upPastArray.push({
+      moment: past[i].moment,
+      size: past[i].upVotes
+    })
   }
+  console.log("upPastArray", upPastArray)
   
 })
 
