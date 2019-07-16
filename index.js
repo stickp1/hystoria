@@ -232,6 +232,7 @@ $('#upPastBtn').click(async function(){
   past.forEach(writePast)
   console.log("upPastArray", upPastArray)
   renderPast();
+  $('#loader').hide();
 })
 
 function writePast(event){
