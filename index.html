@@ -66,15 +66,16 @@
       </div>
     </div>
     
-    <script id="template2" type="x-tmpl-mustache">
+    
       {{#upPastArray}}
-        <div class="jumbotron jumbotron-fluid">
-          <div class="container">
+        <div class="jumbotron">
+          <script id="template2" type="x-tmpl-mustache">
             <h1 class="display-4"><nobr>{{moment}}</nobr></h1>
-          </div>
+          </script>  
         </div>        
       {{/upPastArray}}
-    </script>
+    
+    
 
     <script id="template" type="x-tmpl-mustache">
       {{#memeArray}}
