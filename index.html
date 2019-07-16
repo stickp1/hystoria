@@ -66,7 +66,7 @@
           </div>
           
           <div id="upPastBody"></div>
-          
+          <div id="dwPastBody"></div>
           
           <!-- div for form registration of the meme. We need the url and a name. -->
           <div id="memeBody"></div>
@@ -85,7 +85,14 @@
          
         </div>      
       </script>  
-      
+    
+      <script id="template3" type="x-tmpl-mustache">
+        <div class="jumbotron bg-#2F4F4F">
+          {{#dwPastArray}}
+            <span class="lead" style="color":#F0FFFF>{{moment}}</span>
+          {{/dwPastArray}}
+        </div>
+      </script>
     
     
 
