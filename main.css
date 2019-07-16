@@ -49,8 +49,8 @@ img{
 .card{
   margin-top: 3em;
   padding-top: 0.5em;
-  background-color: #2F4F4F;
-  border: 0.5em solid #2F4F4F;
+  /*background-color: #2F4F4F;*/
+  /*border: 0.5em solid #2F4F4F;*/
 }
 
 .container{
