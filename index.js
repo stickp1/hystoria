@@ -205,12 +205,6 @@ window.addEventListener('load', async () => {
   
   renderUpPast();
   
-  past.forEach(writePast)
-  
-  console.log("upPastArray", upPastArray)
-  
-  renderUpPast();
-  
   //Loop over every meme to get all their relevant information
   for (let i = 1; i <= memesLength; i++) {
 
