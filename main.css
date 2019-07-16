@@ -58,14 +58,14 @@ img{
   /*border: 0.5em solid #2F4F4F;*/
 }
 
+.jumbotron{
+  white-space:nowrap;
+}
+
 .container{
   min-height: 100vh;
   max-height: 100vh;
   overflow-y: auto;
-}
-
-.lead{
-  display: inline-block;
 }
 
 .column {
