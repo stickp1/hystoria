@@ -261,7 +261,7 @@ $(document).on("change","input[type=radio]",function(){
         if(firstRender){
           renderDwPast();
           firstRender = false;
-        else{
+        }else{
           $("#upPastBody").hide();
           $("#dwPastBody").show();
         }
