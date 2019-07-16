@@ -136,11 +136,18 @@ function renderMemes() {
   $('#memeBody').html(rendered);
 }
 
-function renderPast(){
+function renderUpPast(){
   let template = $('#template2').html();
   Mustache.parse(template);
   let rendered = Mustache.render(template, {upPastArray});
   $('#upPastBody').html(rendered);
+}
+
+function renderDwPast(){
+  let template = $('#template3').html();
+  Mustache.parse(template);
+  let rendered = Mustache.render(template, {dwPastArray});
+  $('#dwPastBody').html(rendered);
 }
 
 //Create a asynchronous read call for our smart contract
@@ -181,6 +188,14 @@ window.addEventListener('load', async () => {
   memesLength = await callStatic('getNowsLength', []);
   
   //pastLength = await callStatic('getPastLength', []);  
+  
+  const past = await callStatic('getUpPast', []);
+  
+  past.forEach(writePast)
+  
+  console.log("upPastArray", upPastArray)
+  
+  renderUpPast();
   
   //Loop over every meme to get all their relevant information
   for (let i = 1; i <= memesLength; i++) {
@@ -223,7 +238,21 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   $("#loader").hide();
 });
 
-//If someone click to see BrightHistory, execute the getUpPast
+$(document).on("change","input[type=radio]",function(){
+    if (document.getElementById('upPastBtn').checked) {
+        $('#loader').show();
+        $("#dwPastBody").hide();
+        renderUpPast();
+        $('#loader').hide();
+    } else {
+        $('#loader').show();
+        $("#upPastBody").hide();
+        renderDwPast();
+        $('#loader').hide();
+    }
+});
+
+/*//If someone click to see BrightHistory, execute the getUpPast
 $('#upPastBtn').click(async function(){
   $('#loader').show();
   
@@ -234,14 +263,10 @@ $('#upPastBtn').click(async function(){
   renderPast();
   $('#loader').hide();
 })
-
+*/
 function writePast(event){
-  upPastArray.push({
-    moment : event.moment,
-    size : event.upVotes
-  })
+  upPastArray.push({ moment : event.moment })
 }
-
 
 //If someone clicks to register a meme, get the input and execute the registerCall
 $('#registerBtn').click(async function(){
