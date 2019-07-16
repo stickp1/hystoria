@@ -241,6 +241,7 @@ $('#registerBtn').click(async function(){
     creatorName: name,
     memeUrl: url,
     index: memeArray.length+1,
+    index2: -memeArray.length-1,
     votes: 0,
   })
 
