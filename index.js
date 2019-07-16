@@ -138,7 +138,9 @@ function renderMemes() {
 
 function renderPast(){
   let template = $('#template2').html();
-
+  Mustache.parse(template);
+  let rendered = Mustache.render(template, {upPastArray});
+  $('#upPastBody').html(rendered);
 }
 
 //Create a asynchronous read call for our smart contract
