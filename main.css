@@ -29,6 +29,10 @@ img{
   display: none;
 }
 
+#container p { 
+  display: inline 
+}
+
 .h4{
   color:white
 }
