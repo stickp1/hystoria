@@ -71,7 +71,7 @@
         <div class="jumbotron">
           
             {{#upPastArray}}
-              <p class="lead"><nobr>{{moment}}</nobr></p>
+              <nobr><p class="lead">{{moment}}</p></nobr>
             {{/upPastArray}}
          
         </div>      
@@ -82,7 +82,7 @@
 
     <script id="template" type="x-tmpl-mustache">
       {{#memeArray}}
-        <div class="card border-success mb-3" style="max-width: 18rem;">
+        <div class="card border-success" style="max-width: 18rem;">
           <div class="card-header bg-transparent border-success text-muted">{{votes}} ættos</div>
           <div class="card-body text-success">
             <h5 class="card-title">{{memeUrl}}</h5>
