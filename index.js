@@ -136,6 +136,11 @@ function renderMemes() {
   $('#memeBody').html(rendered);
 }
 
+function renderPast(){
+  let template = $('#template2').html();
+
+}
+
 //Create a asynchronous read call for our smart contract
 async function callStatic(func, args) {
   //Create a new contract instance that we can interact with
@@ -224,7 +229,7 @@ $('#upPastBtn').click(async function(){
   console.log("past", past)
   past.forEach(writePast)
   console.log("upPastArray", upPastArray)
-  
+  renderPast();
 })
 
 function writePast(event){
