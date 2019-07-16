@@ -59,6 +59,10 @@ img{
   overflow-y: auto;
 }
 
+.lead{
+  display: inline-block;
+}
+
 .column {
   float: left;
   width: 50%;
