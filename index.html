@@ -21,7 +21,7 @@
           <div id="title-div">
             <img src="img/homoSapiens.gif">
             <h1 id="static_text" style="color:#2F4F4F;">Hystoria</h1>
-            <h4 id="static_text" style="color:#2F4F4F;">the greater and lesser events</h4>
+            <h4 id="static_text" style="color:#2F4F4F;">of greater and lesser events</h4>
           </div>
           
            <!-- div for entering messages to the user, currently just used by a loading animation. -->
@@ -42,11 +42,34 @@
           </div>
           
           <div id="upPastBody"></div>
-          <div id="dwPastBody"></div>
+          <div id="dwPastBody"></div>   
+          <div id="memeBody"></div>
           
           <!-- div for form registration of the meme. We need the url and a name. -->
-          <div id="memeBody"></div>
+         <div class="card border-success" style="max-width: 20rem;">
+           <form>
+             <div class="form-row">
+                <input type="text" id="regName" class="form-control"
+                 placeholder="Your name">
+             </div>
+             <br>
+             <div class="form-row">
+                 <input type="text" id="regUrl" class="form-control"
+                 placeholder="Your testimonial">
+             </div>
+           </form>
+           <button id="registerBtn" class="btn btn-block">Register</button>
 
+
+           <!--<div class="row">
+                    <div class="column">
+                      <button id="upPastBtn" class="btn btn-block">Bright History</button>
+                    </div>
+                    <div class="column">
+                      <button id="dwPastBtn" class="btn btn-block">Dark History</button>
+                    </div>
+                </div>-->
+         </div>
         </div>
       </div>
     </div>
@@ -56,7 +79,7 @@
         <div style="background:transparent !important" class="jumbotron">
           
             {{#upPastArray}}
-              <span class="lead" style="color:#2F4F4F">{{moment}}</span>
+              <nobr><span class="lead" style="color:#2F4F4F">{{moment}}</span></nobr>
             {{/upPastArray}}
          
         </div>      
@@ -65,7 +88,7 @@
       <script id="template3" type="x-tmpl-mustache">
         <div style="background:transparent !important" class="jumbotron">
           {{#dwPastArray}}
-            <span class="lead" style="color:#F0FFFF">{{moment}}</span>
+            <span class="lead" style="color:#F0FFFF"><nobr>{{moment}}</nobr></span>
           {{/dwPastArray}}
         </div>
       </script>
@@ -88,31 +111,7 @@
     </script>
      
            
-     <!-- div for form registration of the meme. We need the url and a name. -->
-     <div>
-       <form>
-         <div class="form-row">
-            <input type="text" id="regName" class="form-control"
-             placeholder="Your name">
-         </div>
-         <br>
-         <div class="form-row">
-             <input type="text" id="regUrl" class="form-control"
-             placeholder="Your testimonial">
-         </div>
-       </form>
-       <button id="registerBtn" class="btn btn-block">Register</button>
-       
-            
-       <!--<div class="row">
-                <div class="column">
-                  <button id="upPastBtn" class="btn btn-block">Bright History</button>
-                </div>
-                <div class="column">
-                  <button id="dwPastBtn" class="btn btn-block">Dark History</button>
-                </div>
-            </div>-->
-     </div>
+    
     
     <!--
       
