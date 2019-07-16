@@ -250,10 +250,14 @@ $(document).on("change","input[type=radio]",function(){
     $('#loader').show();
     if (document.getElementById('upPastBtn').checked) {
         document.body.style.backgroundColor = "#F0FFFF";
+        document.getElementById("title-div").style.color="#2F4F4F";
+        document.getElementById("registerBtn").style.backgroundColor="#2F4F4F";
         $("#dwPastBody").hide();
         $("#upPastBody").show();
     } else {
         document.body.style.backgroundColor = "#2F4F4F";
+        document.getElementById("title-div").style.color="#F0FFFF";
+        document.getElementById("registerBtn").style.backgroundColor="#F0FFFF";
         if(firstRender){
           $("#upPastBody").hide();
           renderDwPast();
