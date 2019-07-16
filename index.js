@@ -250,10 +250,13 @@ $(document).on("change","input[type=radio]",function(){
     $('#loader').show();
     if (document.getElementById('upPastBtn').checked) {
         document.body.style.backgroundColor = "#F0FFFF";
-        document.getElementById("title-div").style.color="#2F4F4F";
+        document.getElementById("static_text").style.color="#2F4F4F";
         document.getElementById("registerBtn").style.backgroundColor="#2F4F4F";
+        document.getElementById("registerBtn").style.color="#F0FFFF";
         document.getElementById("upPastBtn").style.backgroundColor="#2F4F4F";
+        document.getElementById("upPastBtn").style.color="#F0FFFF";
         document.getElementById("dwPastBtn").style.backgroundColor="#2F4F4F";
+        document.getElementById("dwPastBtn").style.color="#F0FFFF";
         $("#dwPastBody").hide();
         $("#upPastBody").show();
     } else {
@@ -262,10 +265,9 @@ $(document).on("change","input[type=radio]",function(){
         document.getElementById("registerBtn").style.background="#F0FFFF";
         document.getElementById("registerBtn").style.color="#2F4F4F";
         document.getElementById("upPastBtn").style.background="#F0FFFF";
-        document.getElementById("registerBtn").style.color="#2F4F4F";
+        document.getElementById("upPastBtn").style.color="#2F4F4F";
         document.getElementById("dwPastBtn").style.background="#F0FFFF";
-        document.getElementById("registerBtn").style.color="#2F4F4F";
-        document.getElementById("registerBtn").style.background="#2F4F4F";
+        document.getElementById("dwPastBtn").style.color="#2F4F4F";
         if(firstRender){
           $("#upPastBody").hide();
           renderDwPast();
