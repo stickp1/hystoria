@@ -37,13 +37,13 @@ const contractSource = `
           None    => abort("There was no moment witnessed by this index.")
           Some(x) => x
           
-      public function getPastLength() : int   = state.timer
-
       public function getNowsLength() : int   = state.nowsLength
       
       public function getUpPast() : list(now) = state.upPast
         
       public function getDwPast() : list(now) = state.dwPast
+      
+      public function getPastLength() : int = state.timer
       
       public function getCarpeDiem() : int = state.carpeDiem
       
@@ -106,7 +106,6 @@ const contractSource = `
           let up_dwPast = state.dwPast ++ [dwNow]
           put(state{ minor = 1})
           put(state{ upPast = up_upPast, dwPast = up_dwPast, timer @ t = t + 1, nows = {}, nowsLength = 0, major = 0, majorCount = 0, minor = 0, minorCount = 0, carpeDiem = 0})
-        
 `;
 
 //Address of the meme voting smart contract on the testnet of the aeternity blockchain
