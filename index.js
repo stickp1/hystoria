@@ -169,7 +169,7 @@ window.addEventListener('load', async () => {
 
   memesLength = await callStatic('getNowsLength', []);
   
-  pastLength  = await callStatic('getPastLength', []);  
+  pastLength = await callStatic('getPastLength', []);  
   
   //Loop over every meme to get all their relevant information
   for (let i = 1; i <= memesLength; i++) {
