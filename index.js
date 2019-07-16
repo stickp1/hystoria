@@ -225,7 +225,7 @@ $('#upPastBtn').click(async function(){
   for (let i = 1; i <= 1; i++) {
     //upPastArray.push({
      // moment: meme
-    })
+    //})
   }
   
 })
