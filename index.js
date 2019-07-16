@@ -222,7 +222,7 @@ $('#upPastBtn').click(async function(){
   
   const past = await callStatic('getUpPast', []);
   console.log("past", past)
-  past.foreach(writePast)
+  past.forEach(writePast)
   console.log("upPastArray", upPastArray)
   
 })
