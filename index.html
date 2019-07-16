@@ -46,14 +46,23 @@
               </div>
             </form>
             <button id="registerBtn" class="btn btn-block">Register</button>
-            <div class="row">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-secondary active">
+                <input type="radio" name="options" id="upPastBtn" autocomplete="off" checked> Bright History
+              </label>
+              <label class="btn btn-secondary">
+                <input type="radio" name="options" id="dwPastBrn" autocomplete="off"> Dark History
+              </label>
+            </div>
+            
+       <!--<div class="row">
                 <div class="column">
                   <button id="upPastBtn" class="btn btn-block">Bright History</button>
                 </div>
                 <div class="column">
                   <button id="dwPastBtn" class="btn btn-block">Dark History</button>
                 </div>
-            </div>
+            </div>-->
           </div>
           
           <div id="upPastBody"></div>
