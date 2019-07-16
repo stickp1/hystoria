@@ -29,6 +29,10 @@ img{
   display: none;
 }
 
+.h4{
+  color:white
+}
+
 .inputForm{
   margin-top: 4em;
   margin-bottom: 0.5em;
@@ -39,6 +43,7 @@ img{
   border-color: #F7296E;
   color:white;
   margin-top: 1em;
+  padding: 8px 12px;
 }
 
 .card{
