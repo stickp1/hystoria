@@ -32,26 +32,26 @@ const contractSource = `
           minorCount = 0,
           carpeDiem = 0 }
           
-      public function getNow(index : int) : now =
+      public entrypoint getNow(index : int) : now =
         switch(Map.lookup(index, state.nows))
           None    => abort("There was no moment witnessed by this index.")
           Some(x) => x
           
-      public function getNowsLength() : int   = state.nowsLength
+      public entrypoint getNowsLength() : int   = state.nowsLength
       
-      public function getUpPast() : list(now) = state.upPast
+      public entrypoint getUpPast() : list(now) = state.upPast
         
-      public function getDwPast() : list(now) = state.dwPast
+      public entrypoint getDwPast() : list(now) = state.dwPast
       
-      public function getPastLength() : int = state.timer
+      public entrypoint getPastLength() : int = state.timer
       
-      public function getCarpeDiem() : int = state.carpeDiem
+      public entrypoint getCarpeDiem() : int = state.carpeDiem
       
-      public function getMajor() : int = state.major
+      public entrypoint getMajor() : int = state.major
       
-      public function getMinor() : int = state.minor
+      public entrypoint getMinor() : int = state.minor
       
-      public stateful function registerNow(moment' : string, name' : string) =
+      public stateful entrypoint registerNow(moment' : string, name' : string) =
         let now = { witness = Call.caller, moment = moment', name = name', upVotes = 0, dwVotes = 0}
         let index = getNowsLength() + 1
         //put(state{ nows[index] = now, nowsLength = index, minor = index, minorCount = 0 }) here every new registration becomes the least popular -> write late to win 
@@ -61,7 +61,7 @@ const contractSource = `
           put(state{ nows[index] = now, nowsLength = index, minor = index }) // here the oldest less reputable wins the title -> vote others to win
         else put(state{ nows[index] = now, nowsLength = index })
          
-      public stateful function voteUp(index : int) =              // reinforce positive
+      public stateful entrypoint voteUp(index : int) =              // reinforce positive
         let now = getNow(index)
         Chain.spend(now.witness, Call.value)
         let up_upVotes = now.upVotes + Call.value
@@ -72,7 +72,7 @@ const contractSource = `
         put(state{ nows = up_Nows, carpeDiem = up_carpeDiem })
         isEvent()
         
-      public stateful function voteDown(index : int) =             // kill negative
+      public stateful entrypoint voteDown(index : int) =             // kill negative
         let now = getNow(index)
         Chain.spend(now.witness, Call.value)
         let up_dwVotes = now.dwVotes + Call.value
@@ -85,7 +85,7 @@ const contractSource = `
         isEvent()
     
       
-      public function findSmallest(it : int, minor' : int, nows' : map(int, now)) : int = 
+      public function entrypoint(it : int, minor' : int, nows' : map(int, now)) : int = 
         let candidate = nows'[it]
         let minor = nows'[minor']
         let up_minor = minor'
@@ -98,7 +98,7 @@ const contractSource = `
         else 
           minor'
       
-      public stateful function isEvent() = 
+      public stateful entrypoint isEvent() = 
         let upNow = state.nows[state.major]
         let dwNow = state.nows[state.minor]
         if ( state.carpeDiem > 1000000 )
