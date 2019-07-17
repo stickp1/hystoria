@@ -64,8 +64,8 @@ img{
   white-space:normal;
 }
 
-.lead{
-  /*white-space:nowrap;*/
+.form-group{
+  margin-top: 3em;
 }
 
 .container{
