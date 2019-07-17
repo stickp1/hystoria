@@ -86,7 +86,7 @@ const contractSource = `
     
       
       public entrypoint findSmallest(it : int, minor' : int, nows' : map(int, now)) : int = 
-        let candidate = nws'[it]
+        let candidate = nows'[it]
         let minor = nows'[minor']
         let up_minor = minor'
         if (it < state.nowsLength && candidate.dwVotes < minor.dwVotes) // couldn't do it any other way
