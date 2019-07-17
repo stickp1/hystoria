@@ -237,10 +237,7 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   let value = $(this).siblings('input').val(),
       index = event.target.id;
   console.log("index", index)
-  var id = $(this).children(":selected").attr("id");
-  console.log("id", id)
-  if(id > 0) {
-     index = id;
+  if(index > 0) {
     //Promise to execute execute call for the vote meme function with let values
     await contractCall('voteUp', [index], value);
     //Hide the loading animation after async calls return a value
@@ -248,11 +245,11 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
     console.log(foundIndex);
     memeArray[foundIndex].upVotes += parseInt(value, 10);
   } else {
-    index = -id;
+    index = -index;
     //Promise to execute execute call for the vote meme function with let values
     await contractCall('voteDown', [index], value);
     //Hide the loading animation after async calls return a value
-    const foundIndex = memeArray.findIndex(meme => meme.index == event.target.id);
+    const foundIndex = memeArray.findIndex(meme => meme.index2 == -event.target.id);
     console.log(foundIndex);
     memeArray[foundIndex].dwVotes += parseInt(value, 10);
   }
