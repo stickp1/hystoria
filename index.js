@@ -254,6 +254,10 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
     await contractCall('voteDown', [index], value);
     //Hide the loading animation after async calls return a value
     const foundIndex = memeArray.findIndex(meme => meme.index2 == -event.target.id);
+    console.log(meme.index2)
+    console.log(-meme.index2)
+    console.log(event.target.id)
+    console.log(-event.target.id)
     console.log(foundIndex);
     memeArray[foundIndex].dwVotes += parseInt(value, 10);
   }
