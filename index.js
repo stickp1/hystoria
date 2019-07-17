@@ -124,10 +124,14 @@ var upPastArray = [];
 var dwPastArray = [];
 
 var firstRender = true;
+var bright = true;
 
 function renderMemes() {
   //Order the memes array so that the meme with the most votes is on top
-  memeArray = memeArray.sort(function(a,b){return b.votes-a.votes})
+  if(bright)
+    memeArray = memeArray.sort(function(a,b){return b.upVotes-a.upVotes})
+  else
+    memeArray = memeArray.sort(function(a,b){return b.dwVotes-a.dwVotes})
   //Get the template we created in a block scoped variable
   let template = $('#template').html();
   //Use mustache parse function to speeds up on future uses
@@ -274,6 +278,7 @@ $(document).on("change","input[type=radio]",function(){
         document.getElementById("dwPastBtn").style.color="#F0FFFF";
         $("#dwPastBody").hide();
         $("#upPastBody").show();
+        bright = true;
     } else {
         document.body.style.backgroundColor = "#2F4F4F";
         document.getElementById("static_text").style.color="#F0FFFF";
@@ -291,6 +296,7 @@ $(document).on("change","input[type=radio]",function(){
           $("#upPastBody").hide();
           $("#dwPastBody").show();
         }
+        bright = false;
     }
     $('#loader').hide();
 });
