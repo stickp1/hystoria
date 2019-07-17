@@ -236,7 +236,7 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   //index to get the index of the meme on which the user wants to vote
   let value = $(this).siblings('input').val(),
       index = event.target.id;
-  console.log("index", index);
+  console.log("index", index)
   //var id = $(this).children(":selected").attr("id");
   
   //if(id > 0) {
