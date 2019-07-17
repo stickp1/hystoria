@@ -272,10 +272,6 @@ $(document).on("change","input[type=radio]",function(){
         document.getElementById("static_text").style.color="#2F4F4F";
         document.getElementById("registerBtn").style.backgroundColor="#2F4F4F";
         document.getElementById("registerBtn").style.color="#F0FFFF";
-        document.getElementById("upPastBtn").style.backgroundColor="#2F4F4F";
-        document.getElementById("upPastBtn").style.color="#F0FFFF";
-        document.getElementById("dwPastBtn").style.backgroundColor="#2F4F4F";
-        document.getElementById("dwPastBtn").style.color="#F0FFFF";
         $("#dwPastBody").hide();
         $("#upPastBody").show();
         bright = true;
@@ -284,10 +280,6 @@ $(document).on("change","input[type=radio]",function(){
         document.getElementById("static_text").style.color="#F0FFFF";
         document.getElementById("registerBtn").style.background="#F0FFFF";
         document.getElementById("registerBtn").style.color="#2F4F4F";
-        document.getElementById("upPastBtn").style.background="#F0FFFF";
-        document.getElementById("upPastBtn").style.color="#2F4F4F";
-        document.getElementById("dwPastBtn").style.background="#F0FFFF";
-        document.getElementById("dwPastBtn").style.color="#2F4F4F";
         if(firstRender){
           $("#upPastBody").hide();
           renderDwPast();
@@ -298,6 +290,7 @@ $(document).on("change","input[type=radio]",function(){
         }
         bright = false;
     }
+    renderMemes()
     $('#loader').hide();
 });
 
