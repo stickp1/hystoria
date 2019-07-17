@@ -240,7 +240,7 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   var id = $(this).children(":selected").attr("id");
   
   if(id > 0) {
-     index = id;
+     //index = id;
      //Promise to execute execute call for the vote meme function with let values
      wait contractCall('voteUp', [index], value);
     //Hide the loading animation after async calls return a value
@@ -248,7 +248,7 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
     //console.log(foundIndex);
     memeArray[foundIndex].upVotes += parseInt(value, 10);
   } else {
-    index = -id;
+    //index = -id;
      //Promise to execute execute call for the vote meme function with let values
      wait contractCall('voteDw', [index], value);
     //Hide the loading animation after async calls return a value
