@@ -216,7 +216,9 @@ window.addEventListener('load', async () => {
       creatorName: meme.name,
       memeUrl: meme.moment,
       index: i,
-      votes: meme.upVotes,
+      index2: -i,
+      upVotes: meme.upVotes,
+      dwVotes: meme.dwVotes,
     })
   }
 
@@ -234,13 +236,29 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
   //index to get the index of the meme on which the user wants to vote
   let value = $(this).siblings('input').val(),
       index = event.target.id;
-  //Promise to execute execute call for the vote meme function with let values
-  await contractCall('voteUp', [index], value);
+  console.log("index", index);
+  var id = $(this).children(":selected").attr("id");
+  
+  if(id > 0) {
+     index = id;
+     //Promise to execute execute call for the vote meme function with let values
+     wait contractCall('voteUp', [index], value);
+    //Hide the loading animation after async calls return a value
+    const foundIndex = memeArray.findIndex(meme => meme.index == event.target.id);
+    //console.log(foundIndex);
+    memeArray[foundIndex].upVotes += parseInt(value, 10);
+  } else {
+    index = -id;
+     //Promise to execute execute call for the vote meme function with let values
+     wait contractCall('voteDw', [index], value);
+    //Hide the loading animation after async calls return a value
+    const foundIndex = memeArray.findIndex(meme => meme.index == event.target.id);
+    //console.log(foundIndex);
+    memeArray[foundIndex].dwVotes += parseInt(value, 10);
+  }
+  
 
-  //Hide the loading animation after async calls return a value
-  const foundIndex = memeArray.findIndex(meme => meme.index == event.target.id);
-  //console.log(foundIndex);
-  memeArray[foundIndex].votes += parseInt(value, 10);
+  
 
   renderMemes();
   $("#loader").hide();
@@ -316,7 +334,8 @@ $('#registerBtn').click(async function(){
     memeUrl: url,
     index: memeArray.length+1,
     index2: -memeArray.length-1,
-    votes: 0,
+    votesUp: 0,
+    votesDw: 0,
   })
 
   renderMemes();
