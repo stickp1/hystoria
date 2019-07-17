@@ -98,8 +98,11 @@
 
     <script id="template" type="x-tmpl-mustache">
       {{#memeArray}}
-        <div class="card border-success" style="max-width: 18rem;">
-          <div class="card-header bg-transparent border-success text-muted">{{votes}} ættos</div>
+        <div class="card border-dark" style="max-width: 18rem;">
+          <div class="card-header bg-transparent border-success text-muted">
+            <span class="positive" style="color:#33cc33">{{upVotes}} ættos</span>
+            <span class="negative" style="color:#ff0000">{{dwVotes}} ættos</span>
+          </div>
           <div class="card-body text-success">
             <h5 class="card-title">{{memeUrl}}</h5>
             <input type="number" class="form-control" placeholder="Amount" id={{index}}>
