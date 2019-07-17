@@ -238,7 +238,7 @@ jQuery("#memeBody").on("click", ".voteBtn", async function(event){
       index = event.target.id;
   console.log("index", index)
   var id = $(this).children(":selected").attr("id");
-  console.log("preciseId", id)
+  console.log("id", id)
   if(id > 0) {
      index = id;
     //Promise to execute execute call for the vote meme function with let values
