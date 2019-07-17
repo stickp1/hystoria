@@ -20,7 +20,7 @@ const contractSource = `
           minorCount : int,
           carpeDiem  : int }
       
-      function init() =
+      entrypoint init() =
         { upPast = [],
           dwPast = [],
           timer = 0,
