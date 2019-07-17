@@ -54,6 +54,9 @@ img{
   /*border: 0.5em solid #2F4F4F;*/
 }
 
+.card-header .positive { float:left }
+.card-header .negative { float:right }
+
 .jumbotron{
   margin-top: 3em;
   padding-top: 0.5em;
