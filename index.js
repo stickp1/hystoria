@@ -267,10 +267,10 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     writeDwPast(nowArray[minorIndex].moment);
     if(bright)
       firstRenderDown = true;
-      renderUpPast()
-    else
+      renderUpPast();
+  }else{
       firstRenderUp = true;
-      renderDwPast()
+      renderDwPast();
   }
   
 
