@@ -113,9 +113,9 @@ const contractAddress = 'ct_29MnWeXG3DAK6ggJ5G3fCRgq2nC3pfAD8ZBgAkCajG1Ae2o1ym';
 //Create variable for client so it can be used in different functions
 var client = null;
 //Create a new global array for the memes
-var memeArray = [];
+var nowArray = [];
 //Create a new variable to store the length of the meme globally
-var memesLength = 0;
+var nowsLength = 0;
 // Create a new variable to store the length of the past
 var pastLength = 0;
 // Create a new variable to store bright history
@@ -126,31 +126,31 @@ var dwPastArray = [];
 var firstRender = true;
 var bright = true;
 
-function renderMemes() {
+function renderNows() {
   //Order the memes array so that the meme with the most votes is on top
   if(bright)
-    memeArray = memeArray.sort(function(a,b){return b.upVotes-a.upVotes})
+    nowArray = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
   else
-    memeArray = memeArray.sort(function(a,b){return b.dwVotes-a.dwVotes})
+    nowArray = nowArray.sort(function(a,b){return b.dwVotes-a.dwVotes})
   //Get the template we created in a block scoped variable
   let template = $('#template').html();
   //Use mustache parse function to speeds up on future uses
   Mustache.parse(template);
   //Create variable with result of render func form template and data
-  let rendered = Mustache.render(template, {memeArray});
+  let rendered = Mustache.render(template, {nowArray});
   //Use jquery to add the result of the rendering to our html
-  $('#memeBody').html(rendered);
+  $('#nowBody').html(rendered);
 }
 
 function renderUpPast(){
-  let template = $('#template2').html();
+  let template = $('#templateUp').html();
   Mustache.parse(template);
   let rendered = Mustache.render(template, {upPastArray});
   $('#upPastBody').html(rendered);
 }
 
 function renderDwPast(){
-  let template = $('#template3').html();
+  let template = $('#templateDown').html();
   Mustache.parse(template);
   let rendered = Mustache.render(template, {dwPastArray});
   $('#dwPastBody').html(rendered);
@@ -191,9 +191,7 @@ window.addEventListener('load', async () => {
   //First make a call to get to know how may memes have been created and need to be displayed
   //Assign the value of meme length to the global variable
 
-  memesLength = await callStatic('getNowsLength', []);
-  
-  //pastLength = await callStatic('getPastLength', []);  
+  nowsLength = await callStatic('getNowsLength', []);
   
   const upPast = await callStatic('getUpPast', []);
   
@@ -210,58 +208,58 @@ window.addEventListener('load', async () => {
   renderUpPast();
   
   //Loop over every meme to get all their relevant information
-  for (let i = 1; i <= memesLength; i++) {
+  for (let i = 1; i <= nowsLength; i++) {
 
     //Make the call to the blockchain to get all relevant information on the meme
-    const meme = await callStatic('getNow', [i]);
+    const now = await callStatic('getNow', [i]);
 
     //Create meme object with  info from the call and push into the array with all memes
-    memeArray.push({
-      creatorName: meme.name,
-      memeUrl: meme.moment,
-      index: i,
-      index2: -i,
-      upVotes: meme.upVotes,
-      dwVotes: meme.dwVotes,
+    nowArray.push({
+      witness: now.name,
+      moment: now.moment,
+      indexUp: i,
+      indexDown: -i,
+      upVotes: now.upVotes,
+      dwVotes: now.dwVotes,
     })
   }
 
   //Display updated memes
-  renderMemes();
+  renderNows();
 
   //Hide loader animation
   $("#loader").hide();
 });
 
 //If someone clicks to vote on a meme, get the input and execute the voteCall
-jQuery("#memeBody").on("click", ".voteBtn", async function(event){
+jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   $("#loader").show();
   //Create two new let block scoped variables, value for the vote input and
   //index to get the index of the meme on which the user wants to vote
   let value = $(this).siblings('input').val(),
       index = event.target.id;
-  console.log("index", index)
+  
   if(index > 0) {
     //Promise to execute execute call for the vote meme function with let values
     await contractCall('voteUp', [index], value);
     //Hide the loading animation after async calls return a value
-    const foundIndex = memeArray.findIndex(meme => meme.index == event.target.id);
+    const foundIndex = nowArray.findIndex(now => now.indexUp == event.target.id);
     console.log(foundIndex);
-    memeArray[foundIndex].upVotes += parseInt(value, 10);
+    nowArray[foundIndex].upVotes += parseInt(value, 10);
   } else {
     index = -index;
     //Promise to execute execute call for the vote meme function with let values
     await contractCall('voteDown', [index], value);
     //Hide the loading animation after async calls return a value
-    const foundIndex = memeArray.findIndex(meme => meme.index2 == event.target.id);
+    const foundIndex = nowArray.findIndex(now => now.indexDown == event.target.id);
     console.log(foundIndex);
-    memeArray[foundIndex].dwVotes += parseInt(value, 10);
+    nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
   
 
   
 
-  renderMemes();
+  renderNows();
   $("#loader").hide();
 });
 
@@ -290,7 +288,7 @@ $(document).on("change","input[type=radio]",function(){
         }
         bright = false;
     }
-    renderMemes()
+    renderNows()
     $('#loader').hide();
 });
 
@@ -325,15 +323,15 @@ $('#registerBtn').click(async function(){
   await contractCall('registerNow', [url, name], 0);
 
   //Add the new created memeobject to our memearray
-  memeArray.push({
-    creatorName: name,
-    memeUrl: url,
-    index: memeArray.length+1,
-    index2: -memeArray.length-1,
+  nowArray.push({
+    witness: name,
+    moment: url,
+    indexUp: memeArray.length+1,
+    indexDown: -memeArray.length-1,
     votesUp: 0,
     votesDw: 0,
   })
 
-  renderMemes();
+  renderNows();
   $("#loader").hide();
 });
