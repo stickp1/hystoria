@@ -60,7 +60,7 @@ const contractSource = `
           put(state{ nows[index] = now, nowsLength = index, minor = index }) 
         else put(state{ nows[index] = now, nowsLength = index })                                   // else newly created moment is not the minor
          
-      public stateful entrypoint voteUp(index : int) =                                            
+      public stateful entrypoint voteUp(index : int) : bool =                                            
         let now = getNow(index)
         Chain.spend(now.witness, Call.value)
         let up_upVotes = now.upVotes + Call.value
@@ -71,7 +71,7 @@ const contractSource = `
         put(state{ nows = up_Nows, carpeDiem = up_carpeDiem })
         isEvent()
         
-      public stateful entrypoint voteDown(index : int) =                                           
+      public stateful entrypoint voteDown(index : int) : bool =                                           
         let now = getNow(index)
         Chain.spend(now.witness, Call.value)
         let up_dwVotes = now.dwVotes + Call.value
@@ -96,7 +96,7 @@ const contractSource = `
         else 
           minor'
       
-      public stateful entrypoint isEvent() =                    // has enough attention (amount in tokens) been spent to add to history
+      public stateful entrypoint isEvent() : bool =                    // has enough attention (amount in tokens) been spent to add to history
         let upNow = state.nows[state.major]
         let dwNow = state.nows[state.minor]
         if ( state.carpeDiem > 1000000 )
@@ -104,6 +104,8 @@ const contractSource = `
           let up_dwPast = state.dwPast ++ [dwNow]
           put(state{ minor = 1})
           put(state{ upPast = up_upPast, dwPast = up_dwPast, timer @ t = t + 1, nows = {}, nowsLength = 0, major = 0, majorCount = 0, minor = 0, minorCount = 0, carpeDiem = 0})
+          true
+        else false
 `;
 
 //Address of the meme voting smart contract on the testnet of the aeternity blockchain
@@ -121,7 +123,8 @@ var upPastArray = [];
 // Create a new variable to store dark history
 var dwPastArray = [];
 
-var firstRender = true;
+var firstRenderUp = false;  // we start with bright history rendered already
+var firstRenderDown = true;
 var bright = true;
 
 function renderNows() {
@@ -188,7 +191,6 @@ window.addEventListener('load', async () => {
 
   //First make a call to get to know how may memes have been created and need to be displayed
   //Assign the value of meme length to the global variable
-
   
   const upPast = await callStatic('getUpPast', []);
   
@@ -240,7 +242,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   
   if(index > 0) {
     //Promise to execute execute call for the vote meme function with let values
-    await contractCall('voteUp', [index], value);
+    const isEvent = await contractCall('voteUp', [index], value);
     //Hide the loading animation after async calls return a value
     const foundIndex = nowArray.findIndex(now => now.indexUp == event.target.id);
     console.log(foundIndex);
@@ -255,7 +257,21 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
   
-
+  if(isEvent) {
+    nowArray = [];
+    const major = await callStatic('getMajor', []);
+    const minor = await callStatic('getMinor', []);
+    const majorIndex = nowArray.findIndex(now => now.indexUp == major);
+    const minorIndex = nowArray.findIndex(now => now.indexDown == minor);
+    writeUpPast(nowArray[majorIndex].moment);
+    writeDwPast(nowArray[minorIndex].moment);
+    if(bright)
+      firstRenderDown = true;
+      renderUpPast()
+    else
+      firstRenderUp = true;
+      renderDwPast()
+  }
   
 
   renderNows();
@@ -270,21 +286,21 @@ $(document).on("change","input[type=radio]",function(){
         document.getElementById("registerBtn").style.backgroundColor="#2F4F4F";
         document.getElementById("registerBtn").style.color="#F0FFFF";
         $("#dwPastBody").hide();
-        $("#upPastBody").show();
+        if(firstRenderUp){
+          renderUpPast();
+          firstRenderUp = false;
+        } else $("#upPastBody").show();
         bright = true;
     } else {
         document.body.style.backgroundColor = "#2F4F4F";
         document.getElementById("static_text").style.color="#F0FFFF";
         document.getElementById("registerBtn").style.background="#F0FFFF";
         document.getElementById("registerBtn").style.color="#2F4F4F";
-        if(firstRender){
-          $("#upPastBody").hide();
+         $("#upPastBody").hide();
+        if(firstRenderDown){
           renderDwPast();
-          firstRender = false;
-        }else{
-          $("#upPastBody").hide();
-          $("#dwPastBody").show();
-        }
+          firstRenderDown = false;
+        }else $("#dwPastBody").show();
         bright = false;
     }
     renderNows()
@@ -303,12 +319,12 @@ $('#upPastBtn').click(async function(){
   $('#loader').hide();
 })
 */
-function writeUpPast(event){
-  upPastArray.push({ moment : event.moment })
+function writeUpPast(now){
+  upPastArray.push({ moment : now.moment })
 }
 
-function writeDwPast(event){
-  dwPastArray.push({ moment : event.moment })
+function writeDwPast(now){
+  dwPastArray.push({ moment : now.moment })
 }
 
 //If someone clicks to register a meme, get the input and execute the registerCall
