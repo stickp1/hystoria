@@ -239,6 +239,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
       index = event.target.id;
   const major = await callStatic('getMajor', []);
   const minor = await callStatic('getMinor', []);
+  const carpeDiem = await callStatic('getCarpeDiem', []);
   console.log("major", major);
   console.log("minor", minor);
   if(index > 0) {
@@ -257,10 +258,8 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     console.log(foundIndex);
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
-  
-  nowsLength = await callStatic('getNowsLength', []); 
-  
-  if(nowsLength == 0) {
+  console.log("amount: value", {amount: value});
+  if(carpeDiem + {amount: value} > 1000000) {
     pastLength += 1;
     nowArray = [];
     const majorIndex = nowArray.findIndex(now => now.indexUp == major);
