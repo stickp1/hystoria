@@ -324,7 +324,7 @@ $('#registerBtn').click(async function(){
         moment = ($('#regMoment').val());
 
   //Make the contract call to register the moment with the newly passed values
-  await contractCall('registerNow', [url, name], 0);
+  await contractCall('registerNow', [moment, name], 0);
 
   //Add the new created nowObject to our nowArray
   nowArray.push({
