@@ -107,8 +107,8 @@ const contractSource = `
 `;
 
 //Address of the meme voting smart contract on the testnet of the aeternity blockchain
-//const contractAddress = 'ct_Zyyr1UZhat5xmx2dCcjASfcCR5WCFYB5TBXVbXd4acE1kUwqv';
-const contractAddress = 'ct_VQsaYCZ6jfABevAhGeytCVkm4eeEW1Wc4QPpKv9GHVeXcG3HW';
+const contractAddress = 'ct_2AwTr53WH9sefdP8N9bFLdjkdgQL3L4CSU7wVt2XNKQJDm14Mk';
+//const contractAddress = 'ct_VQsaYCZ6jfABevAhGeytCVkm4eeEW1Wc4QPpKv9GHVeXcG3HW';
 //Create variable for client so it can be used in different functions
 var client = null;
 //Create a new global array for the memes
