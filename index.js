@@ -127,7 +127,7 @@ var firstRenderDown = true;
 var bright = true;
 
 function renderNows() {
-  //Order the memes array so that the meme with the most votes is on top
+  //Order the now array so that the moment with the most votes is on top
   if(bright)
     nowArray = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
   else
@@ -187,8 +187,8 @@ window.addEventListener('load', async () => {
   //Initialize the Aepp object through aepp-sdk.browser.js, the base app needs to be running.
   client = await Ae.Aepp();
 
-  //First make a call to get to know how may memes have been created and need to be displayed
-  //Assign the value of meme length to the global variable
+  //First make a call to get to know how may moments have been created and need to be displayed
+  //Assign the value of now length to the global variable
   
   const upPast = await callStatic('getUpPast', []);
   
@@ -206,13 +206,13 @@ window.addEventListener('load', async () => {
   
   nowsLength = await callStatic('getNowsLength', []);
   
-  //Loop over every meme to get all their relevant information
+  //Loop over every moment to get all their relevant information
   for (let i = 1; i <= nowsLength; i++) {
 
-    //Make the call to the blockchain to get all relevant information on the meme
+    //Make the call to the blockchain to get all relevant information on the moment
     const now = await callStatic('getNow', [i]);
 
-    //Create meme object with  info from the call and push into the array with all memes
+    //Create now object with  info from the call and push into the array with all moments
     nowArray.push({
       witness: now.name,
       moment: now.moment,
@@ -230,11 +230,11 @@ window.addEventListener('load', async () => {
   $("#loader").hide();
 });
 
-//If someone clicks to vote on a meme, get the input and execute the voteCall
+//If someone clicks to vote on a moment, get the input and execute the voteCall
 jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   $("#loader").show();
   //Create two new let block scoped variables, value for the vote input and
-  //index to get the index of the meme on which the user wants to vote
+  //index to get the index of the moment on which the user wants to vote
   let value = $(this).siblings('input').val(),
       index = event.target.id;
   const major = await callStatic('getMajor', []);
@@ -242,7 +242,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   console.log("major", major);
   console.log("minor", minor);
   if(index > 0) {
-    //Promise to execute execute call for the vote meme function with let values
+    //Promise to execute execute call for the vote now function with let values
     await contractCall('voteUp', [index], value);
     //Hide the loading animation after async calls return a value
     const foundIndex = nowArray.findIndex(now => now.indexUp == event.target.id);
@@ -250,7 +250,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     nowArray[foundIndex].upVotes += parseInt(value, 10);
   } else {
     index = -index;
-    //Promise to execute execute call for the vote meme function with let values
+    //Promise to execute execute call for the vote now function with let values
     await contractCall('voteDown', [index], value);
     //Hide the loading animation after async calls return a value
     const foundIndex = nowArray.findIndex(now => now.indexDown == event.target.id);
@@ -308,18 +308,6 @@ $(document).on("change","input[type=radio]",function(){
     $('#loader').hide();
 });
 
-/*//If someone click to see BrightHistory, execute the getUpPast
-$('#upPastBtn').click(async function(){
-  $('#loader').show();
-  
-  const past = await callStatic('getUpPast', []);
-  console.log("past", past)
-  past.forEach(writePast)
-  console.log("upPastArray", upPastArray)
-  renderPast();
-  $('#loader').hide();
-})
-*/
 function writeUpPast(now){
   upPastArray.push({ moment : now.moment })
 }
@@ -328,24 +316,24 @@ function writeDwPast(now){
   dwPastArray.push({ moment : now.moment })
 }
 
-//If someone clicks to register a meme, get the input and execute the registerCall
+//If someone clicks to register a moment, get the input and execute the registerCall
 $('#registerBtn').click(async function(){
   $("#loader").show();
   //Create two new let variables which get the values from the input fields
   const name = ($('#regName').val()),
-        url = ($('#regUrl').val());
+        moment = ($('#regMoment').val());
 
-  //Make the contract call to register the meme with the newly passed values
+  //Make the contract call to register the moment with the newly passed values
   await contractCall('registerNow', [url, name], 0);
 
-  //Add the new created memeobject to our memearray
+  //Add the new created nowObject to our nowArray
   nowArray.push({
     witness: name,
-    moment: url,
+    moment: moment,
     indexUp: nowArray.length+1,
     indexDown: -nowArray.length-1,
-    votesUp: 0,
-    votesDw: 0,
+    upVotes: 0,
+    dwVotes: 0,
   })
   nowsLength += 1;
 
