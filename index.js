@@ -103,7 +103,7 @@ const contractSource = `
           let up_upPast = state.upPast ++ [upNow]
           let up_dwPast = state.dwPast ++ [dwNow]
           put(state{ minor = 1})
-          put(state{ upPast = up_upPast, dwPast = up_dwPast, timer @ t = t + 1, nows = {}, nowsLength = 0, major = 0, majorCount = 0, minor = 0, minorCount = 0, carpeDiem = 0})
+          put(state{ upPast = up_upPast, dwPast = up_dwPast, timer @ t = t + 1, nows = {}, nowsLength = 0, major = -1, majorCount = 0, minor = -1, minorCount = 0, carpeDiem = -1})
 `;
 
 //Address of the meme voting smart contract on the testnet of the aeternity blockchain
