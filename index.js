@@ -131,7 +131,7 @@ function renderNows() {
   if(bright)
     nowArray = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
   else
-    nowArray = nowArray.sort(function(a,b){return b.dwVotes-a.dwVotes})
+    nowArray = nowArray.sort(function(a,b){return a.dwVotes-b.dwVotes})
   //Get the template we created in a block scoped variable
   let template = $('#template').html();
   //Use mustache parse function to speeds up on future uses
@@ -237,11 +237,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   //index to get the index of the moment on which the user wants to vote
   let value = $(this).siblings('input').val(),
       index = event.target.id;
-  const major = await callStatic('getMajor', []);
-  const minor = await callStatic('getMinor', []);
   const carpeDiem = await callStatic('getCarpeDiem', []);
-  console.log("major", major);
-  console.log("minor", minor);
   if(index > 0) {
     //Promise to execute execute call for the vote now function with let values
     await contractCall('voteUp', [index], value);
@@ -258,16 +254,13 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     console.log(foundIndex);
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
-  
   if(carpeDiem + value > 1000000) {
     pastLength += 1;
+    const up = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
+    const down = nowArray.sort(function(a,b){return a.dwVotes-b.dwVotes})
+    writeUpPast(up[majorIndex].moment);
+    writeDwPast(down[minorIndex].moment);
     nowArray = [];
-    const majorIndex = nowArray.findIndex(now => now.indexUp == major-1);
-    const minorIndex = nowArray.findIndex(now => now.indexDown == minor-1);
-    console.log("majorIndex", majorIndex);
-    console.log("minorIndex", minorIndex);
-    writeUpPast(nowArray[majorIndex].moment);
-    writeDwPast(nowArray[minorIndex].moment);
     console.log("upPastArray", upPastArray);
     if(bright){
       firstRenderDown = true;
