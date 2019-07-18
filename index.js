@@ -258,8 +258,8 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     pastLength += 1;
     const up = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
     const down = nowArray.sort(function(a,b){return a.dwVotes-b.dwVotes})
-    writeUpPast(up[majorIndex].moment);
-    writeDwPast(down[minorIndex].moment);
+    writeUpPast(up[0].moment);
+    writeDwPast(down[0].moment);
     nowArray = [];
     console.log("upPastArray", upPastArray);
     if(bright){
