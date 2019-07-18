@@ -239,33 +239,22 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
       index = event.target.id;
   const carpeDiem = await callStatic('getCarpeDiem', []);
   if(index > 0) {
-    //Promise to execute execute call for the vote now function with let values
     await contractCall('voteUp', [index], value);
-    //Hide the loading animation after async calls return a value
     const foundIndex = nowArray.findIndex(now => now.indexUp == event.target.id);
-    console.log(foundIndex);
     nowArray[foundIndex].upVotes += parseInt(value, 10);
   } else {
     index = -index;
-    //Promise to execute execute call for the vote now function with let values
     await contractCall('voteDown', [index], value);
-    //Hide the loading animation after async calls return a value
     const foundIndex = nowArray.findIndex(now => now.indexDown == event.target.id);
-    console.log(foundIndex);
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
-  console.log("carpeDiem + value", carpeDiem + value);
   if(+carpeDiem + +value > 1000000) {
     pastLength += 1;
     const up = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
     writeUpPast(up[0]);
-    console.log("up", up);
     const down = nowArray.sort(function(a,b){return a.dwVotes-b.dwVotes})
     writeDwPast(down[0]);
-    console.log("up", up);
-    console.log("down", down);
     nowArray = [];
-    console.log("upPastArray", upPastArray);
     if(bright){
       firstRenderDown = true;
       renderUpPast();
