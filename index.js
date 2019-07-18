@@ -176,9 +176,6 @@ async function contractCall(func, args, value) {
   const contract = await client.getContractInstance(contractSource, {contractAddress});
   //Make a call to write smart contract func, with aeon value input
   const calledSet = await contract.call(func, args, {amount: value}).catch(e => console.error(e));
-  console.log("calledSet", calledSet);
-  const decodedSet = await calledSet.decode().catch(e => console.error(e));
-  console.log("decodedSet", decodedSet);
   return calledSet;
 }
 
@@ -270,12 +267,13 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     const minorIndex = nowArray.findIndex(now => now.indexDown == minor);
     writeUpPast(nowArray[majorIndex].moment);
     writeDwPast(nowArray[minorIndex].moment);
-    if(bright)
+    if(bright){
       firstRenderDown = true;
       renderUpPast();
-  }else{
+    }else{
       firstRenderUp = true;
       renderDwPast();
+    }
   }
   renderNows();
   $("#loader").hide();
