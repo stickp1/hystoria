@@ -1,7 +1,7 @@
 # hystoria
 
 In a perfect world, that which is most loved would correspond to that which is least hated. 
-This is however, hardly the case.
+This is, however, hardly the case.
 Here is a very simple implementation (I have no experience whatsoever with either html, javascript, blockchain) of an idea:
 From a number of events registered by users of the app (where an event consists of a sentence which might represent a thought, saying, historical event, artistic expression, joke, and anything in between), one is selected to become part of a bright history (the most upvoted), and one is selected to become part of a dark history (the least downvoted). An event might be selected for both.
 
