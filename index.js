@@ -258,9 +258,8 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     console.log(foundIndex);
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
-  console.log("value", value)
-  console.log("amount: value", Object.values({amount: value}));
-  if(carpeDiem + {amount: value} > 1000000) {
+  
+  if(carpeDiem + value > 1000000) {
     pastLength += 1;
     nowArray = [];
     const majorIndex = nowArray.findIndex(now => now.indexUp == major);
