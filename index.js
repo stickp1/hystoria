@@ -26,11 +26,11 @@ const contractSource = `
           timer = 0,
           nows = {},
           nowsLength = 0,
-          major = 0,
+          major = -1,
           majorCount = 0,
-          minor = 0,
+          minor = -1,
           minorCount = 0,
-          carpeDiem = 0 }
+          carpeDiem = -1 }
           
       public entrypoint getNow(index : int) : now =
         switch(Map.lookup(index, state.nows))
@@ -54,7 +54,7 @@ const contractSource = `
       public stateful entrypoint registerNow(moment' : string, name' : string) =
         let now = { witness = Call.caller, moment = moment', name = name', upVotes = 0, dwVotes = 0}
         let index = getNowsLength() + 1
-        if ( state.minor == 0 )                                                                    // if there isn't a minor defined
+        if ( state.minor == -1 )                                                                    // if there isn't a minor defined
           put(state{ nows[index] = now, nowsLength = index, minor = index, major = index })
         elif( state.minorCount != 0 )                                                              // if current minor has some down votes
           put(state{ nows[index] = now, nowsLength = index, minor = index }) 
@@ -99,7 +99,7 @@ const contractSource = `
       public stateful entrypoint isEvent() =                    // has enough attention (amount in tokens) been spent to add to history
         let upNow = state.nows[state.major]
         let dwNow = state.nows[state.minor]
-        if ( state.carpeDiem > 1000000 )
+        if ( state.carpeDiem > 999999 )
           let up_upPast = state.upPast ++ [upNow]
           let up_dwPast = state.dwPast ++ [dwNow]
           put(state{ minor = 1})
