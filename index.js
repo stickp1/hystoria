@@ -324,8 +324,8 @@ $('#registerBtn').click(async function(){
   nowArray.push({
     witness: name,
     moment: url,
-    indexUp: memeArray.length+1,
-    indexDown: -memeArray.length-1,
+    indexUp: nowArray.length+1,
+    indexDown: -nowArray.length-1,
     votesUp: 0,
     votesDw: 0,
   })
