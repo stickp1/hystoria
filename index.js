@@ -265,8 +265,11 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     nowArray = [];
     const majorIndex = nowArray.findIndex(now => now.indexUp == major);
     const minorIndex = nowArray.findIndex(now => now.indexDown == minor);
+    console.log("majorIndex", majorIndex);
+    console.log("minorIndex", minorIndex);
     writeUpPast(nowArray[majorIndex].moment);
     writeDwPast(nowArray[minorIndex].moment);
+    console.log("upPastArray", upPastArray);
     if(bright){
       firstRenderDown = true;
       renderUpPast();
