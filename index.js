@@ -258,11 +258,12 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   if(+carpeDiem + +value > 1000000) {
     pastLength += 1;
     const up = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
-    const down = nowArray.sort(function(a,b){return a.dwVotes-b.dwVotes})
-    console.log(up);
-    console.log(down);
     writeUpPast(up[0]);
+    console.log("up", up);
+    const down = nowArray.sort(function(a,b){return a.dwVotes-b.dwVotes})
     writeDwPast(down[0]);
+    console.log("up", up);
+    console.log("down", down);
     nowArray = [];
     console.log("upPastArray", upPastArray);
     if(bright){
