@@ -250,13 +250,13 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   } else {
     index = -index;
     //Promise to execute execute call for the vote meme function with let values
-    await contractCall('voteDown', [index], value);
+    const isEvent = await contractCall('voteDown', [index], value);
     //Hide the loading animation after async calls return a value
     const foundIndex = nowArray.findIndex(now => now.indexDown == event.target.id);
     console.log(foundIndex);
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
-  
+  console.log("isEvent", isEvent);
   if(isEvent) {
     nowArray = [];
     const major = await callStatic('getMajor', []);
@@ -272,8 +272,6 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
       firstRenderUp = true;
       renderDwPast();
   }
-  
-
   renderNows();
   $("#loader").hide();
 });
