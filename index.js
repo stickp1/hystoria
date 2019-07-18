@@ -262,8 +262,8 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   if(carpeDiem + value > 1000000) {
     pastLength += 1;
     nowArray = [];
-    const majorIndex = nowArray.findIndex(now => now.indexUp == major);
-    const minorIndex = nowArray.findIndex(now => now.indexDown == minor);
+    const majorIndex = nowArray.findIndex(now => now.indexUp == major-1);
+    const minorIndex = nowArray.findIndex(now => now.indexDown == minor-1);
     console.log("majorIndex", majorIndex);
     console.log("minorIndex", minorIndex);
     writeUpPast(nowArray[majorIndex].moment);
