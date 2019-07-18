@@ -2,23 +2,23 @@ const contractSource = `
   contract History =
       
       record now =
-        { witness  : address,
-          moment   : string,
-          name     : string,
-          upVotes  : int,
-          dwVotes  : int }
+        { witness  : address,          // witness of the moment (address)
+          moment   : string,           // moment which might become a part of history
+          name     : string,           // witness name
+          upVotes  : int,              // amount of up votes
+          dwVotes  : int }             // amount of down votes (it's two different games at once!)
           
       record state =
-        { upPast     : list(now),
-          dwPast     : list(now),
-          timer      : int,
-          nows       : map(int, now),
-          nowsLength : int,
-          major      : int,
-          majorCount : int,
-          minor      : int,
+        { upPast     : list(now),      // bright history ( most  upvoted   moments )
+          dwPast     : list(now),      // dark   history ( least downvoted moments )
+          timer      : int,            // time past since beginning (length of past)
+          nows       : map(int, now),  // current "nows" (moments that might become history)
+          nowsLength : int,            
+          major      : int,            // current most up voted moment (to become bright history)
+          majorCount : int,        
+          minor      : int,            // current least down voted moment (to become dark history)
           minorCount : int,
-          carpeDiem  : int }
+          carpeDiem  : int }           // current attention (amount in tokens) spent on this instant across all nows
       
       entrypoint init() =
         { upPast = [],
@@ -54,25 +54,24 @@ const contractSource = `
       public stateful entrypoint registerNow(moment' : string, name' : string) =
         let now = { witness = Call.caller, moment = moment', name = name', upVotes = 0, dwVotes = 0}
         let index = getNowsLength() + 1
-        //put(state{ nows[index] = now, nowsLength = index, minor = index, minorCount = 0 }) here every new registration becomes the least popular -> write late to win 
-        if ( state.minor == 0 )
+        if ( state.minor == 0 )                                                                    // if there isn't a minor defined
           put(state{ nows[index] = now, nowsLength = index, minor = index, major = index })
-        elif( state.minorCount != 0 )
-          put(state{ nows[index] = now, nowsLength = index, minor = index }) // here the oldest less reputable wins the title -> vote others to win
-        else put(state{ nows[index] = now, nowsLength = index })
+        elif( state.minorCount != 0 )                                                              // if current minor has some down votes
+          put(state{ nows[index] = now, nowsLength = index, minor = index }) 
+        else put(state{ nows[index] = now, nowsLength = index })                                   // else newly created moment is not the minor
          
-      public stateful entrypoint voteUp(index : int) =              // reinforce positive
+      public stateful entrypoint voteUp(index : int) =                                            
         let now = getNow(index)
         Chain.spend(now.witness, Call.value)
         let up_upVotes = now.upVotes + Call.value
         let up_carpeDiem = state.carpeDiem + Call.value
         let up_Nows = state.nows{ [index].upVotes = up_upVotes }
-        if ( up_upVotes >= state.majorCount )                      // the reacher wins
+        if ( up_upVotes >= state.majorCount )                      
           put(state { major = index, majorCount = up_upVotes })
         put(state{ nows = up_Nows, carpeDiem = up_carpeDiem })
         isEvent()
         
-      public stateful entrypoint voteDown(index : int) =             // kill negative
+      public stateful entrypoint voteDown(index : int) =                                           
         let now = getNow(index)
         Chain.spend(now.witness, Call.value)
         let up_dwVotes = now.dwVotes + Call.value
@@ -83,7 +82,6 @@ const contractSource = `
           put(state{ minor = up_minor, minorCount = up_Nows[up_minor].dwVotes })
         put(state{ nows = up_Nows, carpeDiem = up_carpeDiem })
         isEvent()
-    
       
       public entrypoint findSmallest(it : int, minor' : int, nows' : map(int, now)) : int = 
         let candidate = nows'[it]
@@ -98,7 +96,7 @@ const contractSource = `
         else 
           minor'
       
-      public stateful entrypoint isEvent() = 
+      public stateful entrypoint isEvent() =                    // has enough attention (amount in tokens) been spent to add to history
         let upNow = state.nows[state.major]
         let dwNow = state.nows[state.minor]
         if ( state.carpeDiem > 1000000 )
@@ -109,7 +107,7 @@ const contractSource = `
 `;
 
 //Address of the meme voting smart contract on the testnet of the aeternity blockchain
-const contractAddress = 'ct_29MnWeXG3DAK6ggJ5G3fCRgq2nC3pfAD8ZBgAkCajG1Ae2o1ym';
+const contractAddress = 'ct_VQsaYCZ6jfABevAhGeytCVkm4eeEW1Wc4QPpKv9GHVeXcG3HW';
 //Create variable for client so it can be used in different functions
 var client = null;
 //Create a new global array for the memes
