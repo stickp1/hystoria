@@ -254,6 +254,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     console.log(foundIndex);
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
+  console.log("carpeDiem", carpeDiem);
   if(carpeDiem + value > 1000000) {
     pastLength += 1;
     const up = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
