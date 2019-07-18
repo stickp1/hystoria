@@ -261,7 +261,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
   
-  nowsLength = away callStatic('getNowsLength', []); 
+  nowsLength = await callStatic('getNowsLength', []); 
   
   if(nowsLength == 0) {
     pastLength += 1;
