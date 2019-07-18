@@ -237,7 +237,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   //index to get the index of the moment on which the user wants to vote
   let value = $(this).siblings('input').val(),
       index = event.target.id;
-  //const carpeDiem = await callStatic('getCarpeDiem', []);
+  const carpeDiem = await callStatic('getCarpeDiem', []);
   if(index > 0) {
     //Promise to execute execute call for the vote now function with let values
     await contractCall('voteUp', [index], value);
@@ -254,7 +254,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
     console.log(foundIndex);
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
-  /*if(carpeDiem + value > 1000000) {
+  if(carpeDiem + value > 1000000) {
     pastLength += 1;
     const up = nowArray.sort(function(a,b){return b.upVotes-a.upVotes})
     const down = nowArray.sort(function(a,b){return a.dwVotes-b.dwVotes})
@@ -269,7 +269,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
       firstRenderUp = true;
       renderDwPast();
     }
-  }*/
+  }
   renderNows();
   $("#loader").hide();
 });
