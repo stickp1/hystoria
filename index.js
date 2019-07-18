@@ -60,7 +60,7 @@ const contractSource = `
           put(state{ nows[index] = now, nowsLength = index, minor = index }) 
         else put(state{ nows[index] = now, nowsLength = index })                                   // else newly created moment is not the minor
          
-      public stateful entrypoint voteUp(index : int) : bool =                                            
+      public stateful entrypoint voteUp(index : int) =                                            
         let now = getNow(index)
         Chain.spend(now.witness, Call.value)
         let up_upVotes = now.upVotes + Call.value
@@ -71,7 +71,7 @@ const contractSource = `
         put(state{ nows = up_Nows, carpeDiem = up_carpeDiem })
         isEvent()
         
-      public stateful entrypoint voteDown(index : int) : bool =                                           
+      public stateful entrypoint voteDown(index : int) =                                           
         let now = getNow(index)
         Chain.spend(now.witness, Call.value)
         let up_dwVotes = now.dwVotes + Call.value
@@ -96,7 +96,7 @@ const contractSource = `
         else 
           minor'
       
-      public stateful entrypoint isEvent() : bool =                    // has enough attention (amount in tokens) been spent to add to history
+      public stateful entrypoint isEvent() =                    // has enough attention (amount in tokens) been spent to add to history
         let upNow = state.nows[state.major]
         let dwNow = state.nows[state.minor]
         if ( state.carpeDiem > 1000000 )
@@ -104,13 +104,11 @@ const contractSource = `
           let up_dwPast = state.dwPast ++ [dwNow]
           put(state{ minor = 1})
           put(state{ upPast = up_upPast, dwPast = up_dwPast, timer @ t = t + 1, nows = {}, nowsLength = 0, major = 0, majorCount = 0, minor = 0, minorCount = 0, carpeDiem = 0})
-          true
-        else false
 `;
 
 //Address of the meme voting smart contract on the testnet of the aeternity blockchain
-const contractAddress = 'ct_Zyyr1UZhat5xmx2dCcjASfcCR5WCFYB5TBXVbXd4acE1kUwqv';
-//const contractAddress = 'ct_VQsaYCZ6jfABevAhGeytCVkm4eeEW1Wc4QPpKv9GHVeXcG3HW';
+//const contractAddress = 'ct_Zyyr1UZhat5xmx2dCcjASfcCR5WCFYB5TBXVbXd4acE1kUwqv';
+const contractAddress = 'ct_VQsaYCZ6jfABevAhGeytCVkm4eeEW1Wc4QPpKv9GHVeXcG3HW';
 //Create variable for client so it can be used in different functions
 var client = null;
 //Create a new global array for the memes
@@ -242,7 +240,10 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   //index to get the index of the meme on which the user wants to vote
   let value = $(this).siblings('input').val(),
       index = event.target.id;
-  
+  const major = await callStatic('getMajor', []);
+  const minor = await callStatic('getMinor', []);
+  console.log("major", major);
+  console.log("minor", minor);
   if(index > 0) {
     //Promise to execute execute call for the vote meme function with let values
     await contractCall('voteUp', [index], value);
@@ -253,17 +254,18 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
   } else {
     index = -index;
     //Promise to execute execute call for the vote meme function with let values
-    const isEvent = await contractCall('voteDown', [index], value);
+    await contractCall('voteDown', [index], value);
     //Hide the loading animation after async calls return a value
     const foundIndex = nowArray.findIndex(now => now.indexDown == event.target.id);
     console.log(foundIndex);
     nowArray[foundIndex].dwVotes += parseInt(value, 10);
   }
-  console.log("isEvent", isEvent);
-  if(isEvent) {
+  
+  nowsLength = away callStatic('getNowsLength', []); 
+  
+  if(nowsLength == 0) {
+    pastLength += 1;
     nowArray = [];
-    const major = await callStatic('getMajor', []);
-    const minor = await callStatic('getMinor', []);
     const majorIndex = nowArray.findIndex(now => now.indexUp == major);
     const minorIndex = nowArray.findIndex(now => now.indexDown == minor);
     writeUpPast(nowArray[majorIndex].moment);
@@ -347,6 +349,7 @@ $('#registerBtn').click(async function(){
     votesUp: 0,
     votesDw: 0,
   })
+  nowsLength += 1;
 
   renderNows();
   $("#loader").hide();
