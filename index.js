@@ -269,7 +269,7 @@ jQuery("#nowBody").on("click", ".voteBtn", async function(event){
       firstRenderUp = true;
       renderDwPast();
     }
-  */}
+  }*/
   renderNows();
   $("#loader").hide();
 });
