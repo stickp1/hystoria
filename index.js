@@ -271,7 +271,7 @@ $(document).on("change","input[type=radio]",function(){
     $('#loader').show();
     if (document.getElementById('upPastBtn').checked) {
         document.body.style.backgroundColor = "#F0FFFF";
-        document.getElementById("static_text").style.color="#2F4F4F";
+        document.getElementsByClassName("static_text").style.color="#2F4F4F";
         document.getElementById("registerBtn").style.backgroundColor="#2F4F4F";
         document.getElementById("registerBtn").style.color="#F0FFFF";
         $("#dwPastBody").hide();
@@ -282,7 +282,7 @@ $(document).on("change","input[type=radio]",function(){
         bright = true;
     } else {
         document.body.style.backgroundColor = "#2F4F4F";
-        document.getElementById("static_text").style.color="#F0FFFF";
+        document.getElementsByClassName("static_text").style.color="#F0FFFF";
         document.getElementById("registerBtn").style.background="#F0FFFF";
         document.getElementById("registerBtn").style.color="#2F4F4F";
          $("#upPastBody").hide();
